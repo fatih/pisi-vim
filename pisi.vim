@@ -21,6 +21,29 @@ nmap <F2>s :call SvnCommit()<CR>
 
 
 
+" SCM Check
+" Check which scm the users is currently using
+function! ScmCheck()
+python << EOF
+import os
+import vim
+import subprocess
+
+if os.path.exists(".svn"):
+    vim.command("let g:svn=1")
+    vim.command("let g:git=0")
+else:
+    cmd = ["git", "rev-parse", "--is-inside-work-tree"]
+    output = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0].strip().split("\n")
+    if output:
+        vim.command("let g:git=1")
+        vim.command("let g:svn=0")
+
+EOF
+endfunction
+
+call ScmCheck()
+
 """""""" FUNCTIONS
 """"""""""""""""""
 
@@ -176,9 +199,9 @@ import subprocess
 
 buf = vim.current.buffer
 
-if os.path.exists(".svn"):
+if vim.eval("g:svn") == "1" :
     cmd = ["svn", "st", "files/"]
-else:
+elif vim.eval("g:git") == "1":
     cmd = ["git", "status", "-s", "files/"]
 
 output = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0].strip().split("\n")
