@@ -8,15 +8,15 @@
 "
 """"""""" USAGE
 " You can change the keybindings for your personal use
-nmap <F2>h :call FixHash()<CR>
-nmap <F2>a :call PackageTakeover()<CR>
-nmap <F2>c :call AddComment()<CR>
-nmap <F2>o :call OpenHomePage()<CR>
-nmap <F2>p :call AddPatches()<CR>
+nmap <leader>h :call FixHash()<CR>
+nmap <leader>a :call PackageTakeover()<CR>
+nmap <leader>r :call AddComment()<CR>
+nmap <leader>o :call OpenHomePage()<CR>
+nmap <leader>p :call AddPatches()<CR>
 nmap <F2>w :call ShowOther()<CR>
-nmap <F2>d :call ShowDiff()<CR>
-nmap <F2>t :call CreateCommit()<CR>
-nmap <F2>s :call SvnCommit()<CR>
+nmap <leader>d :call ShowDiff()<CR>
+nmap <leader>t :call CreateCommit()<CR>
+nmap <leader>s :call ScmCommit()<CR>
 
 
 
