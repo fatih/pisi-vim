@@ -289,11 +289,18 @@ normal("ggVG=")
 EOF
 endfunction
 
-function! SvnCommit()
+" We assume for git that all changes are to commited
+" Please dont change that, if you want a custom stage
+" to be commited, than use manually git add
+function! ScmCommit()
 python << EOF
 import vim
 
-vim.command(":!svn ci --file commit-msg.tmp")
+if vim.eval("g:svn") == "1" :
+    vim.command(":!svn ci --file commit-msg.tmp")
+elif vim.eval("g:git") == "1":
+    vim.command(":!git commit -a --file commit-msg.tmp")
+
 os.system("rm commit-msg.tmp")
 EOF
 endfunction
